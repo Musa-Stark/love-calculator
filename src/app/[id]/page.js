@@ -6,7 +6,7 @@ export default async function Page({ params }) {
   const { id } = await params;
 
   // Simple authentication check
-  if (id !== "its_stark") {
+  if (id !== "d5299930-7f88-4059-9a9a-c6071c575555") {
     notFound();
   }
 

@@ -1,51 +1,51 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function Home() {
-  const [name1, setName1] = useState('');
-  const [name2, setName2] = useState('');
+  const [name1, setName1] = useState("");
+  const [name2, setName2] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const calculateLove = async (e) => {
     e.preventDefault();
     if (!name1 || !name2) {
-      setError('Please enter both names!');
+      setError("Please enter both names!");
       return;
     }
-    setError('');
+    setError("");
     setLoading(true);
-    
+
     try {
-      const response = await fetch('/api/upload', {
-        method: 'POST',
+      const response = await fetch("/api/upload", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ name1, name2 }),
       });
 
       const data = await response.json();
-      
+
       if (response.ok) {
         setResult(data);
       } else {
-        setError(data.error || 'Something went wrong');
+        setError(data.error || "Something went wrong");
       }
     } catch (err) {
-      setError('Failed to calculate love. Try again.');
+      setError("Failed to calculate love. Try again.");
     } finally {
       setLoading(false);
     }
   };
 
   const reset = () => {
-    setName1('');
-    setName2('');
+    setName1("");
+    setName2("");
     setResult(null);
-    setError('');
+    setError("");
   };
 
   return (
@@ -62,7 +62,9 @@ export default function Home() {
           <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-rose-600 mb-2 drop-shadow-sm">
             Love Calculator
           </h1>
-          <p className="text-rose-400 font-medium">Discover your destiny together ✨</p>
+          <p className="text-rose-400 font-medium">
+            Discover your destiny together ✨
+          </p>
         </div>
 
         {!result ? (
@@ -76,9 +78,11 @@ export default function Home() {
                   className="w-full px-5 py-4 bg-white/50 border-2 border-pink-300 rounded-2xl focus:outline-none focus:border-pink-500 focus:ring-4 focus:ring-pink-200 transition-all text-gray-800 placeholder-pink-400 font-medium"
                   placeholder="Your Name"
                 />
-                <div className="absolute right-4 top-4 text-2xl animate-bounce opacity-0 group-focus-within:opacity-100 transition-opacity">💖</div>
+                <div className="absolute right-4 top-4 text-2xl animate-bounce opacity-0 group-focus-within:opacity-100 transition-opacity">
+                  💖
+                </div>
               </div>
-              
+
               <div className="group relative">
                 <input
                   type="text"
@@ -87,7 +91,9 @@ export default function Home() {
                   className="w-full px-5 py-4 bg-white/50 border-2 border-pink-300 rounded-2xl focus:outline-none focus:border-pink-500 focus:ring-4 focus:ring-pink-200 transition-all text-gray-800 placeholder-pink-400 font-medium"
                   placeholder="Partner's Name"
                 />
-                 <div className="absolute right-4 top-4 text-2xl animate-bounce delay-100 opacity-0 group-focus-within:opacity-100 transition-opacity">💘</div>
+                <div className="absolute right-4 top-4 text-2xl animate-bounce delay-100 opacity-0 group-focus-within:opacity-100 transition-opacity">
+                  💘
+                </div>
               </div>
             </div>
 
@@ -107,7 +113,9 @@ export default function Home() {
               ) : (
                 <>
                   <span>Calculate Love</span>
-                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  <span className="group-hover:translate-x-1 transition-transform">
+                    →
+                  </span>
                 </>
               )}
             </button>
@@ -118,20 +126,31 @@ export default function Home() {
               <div className="text-8xl font-black bg-clip-text text-transparent bg-gradient-to-br from-pink-500 to-rose-600 drop-shadow-sm">
                 {result.percentage}%
               </div>
-              <svg className="absolute -top-6 -right-8 w-16 h-16 text-pink-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+              <svg
+                className="absolute -top-6 -right-8 w-16 h-16 text-pink-400 animate-pulse"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                  clipRule="evenodd"
+                />
               </svg>
             </div>
 
             <div className="space-y-2">
               <h2 className="text-2xl font-bold text-gray-800">
-                {result.names[0]} <span className="text-pink-400">&</span> {result.names[1]}
+                {result.names[0]} <span className="text-pink-400">&</span>{" "}
+                {result.names[1]}
               </h2>
               <div className="h-1 w-24 mx-auto bg-gradient-to-r from-transparent via-pink-400 to-transparent"></div>
               <p className="text-rose-500 font-medium text-lg italic">
-                {result.percentage >= 95 ? "Soulmates! 💍" : 
-                 result.percentage >= 87 ? "Perfect Match! ❤️" : 
-                 "True Love! 💕"}
+                {result.percentage >= 95
+                  ? "Soulmates! 💍"
+                  : result.percentage >= 87
+                  ? "Perfect Match! ❤️"
+                  : "True Love! 💕"}
               </p>
             </div>
 
@@ -144,7 +163,6 @@ export default function Home() {
           </div>
         )}
       </div>
-      
     </main>
   );
 }
